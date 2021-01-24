@@ -120,5 +120,8 @@
       }
     }
   },
-  "defaultProject": "my-crud-app"
+  "defaultProject": "my-crud-app",
+  "cli": {
+    "analytics": false
+  }
 }
