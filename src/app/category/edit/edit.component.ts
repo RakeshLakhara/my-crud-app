@@ -14,6 +14,7 @@ export class EditComponent implements OnInit {
 id:number;
 category: Category;
 form: FormGroup;
+message = '';
 
   constructor(
     public categoryService: CategoryService,
@@ -22,7 +23,8 @@ form: FormGroup;
   ) { }
 
   ngOnInit(): void {
-    this.id = this.route.snapshot.params['categoryId'];
+    this.message = '';
+    this.id = this.route.snapshot.params['Id'];
     this.categoryService.find(this.id).subscribe((data: Category)=>{
       this.category = data;
     });
@@ -40,8 +42,13 @@ form: FormGroup;
     console.log(this.form.value);
     this.categoryService.update(this.id, this.form.value).subscribe(res => {
          console.log('Category updated successfully!');
+         this.message = res.message;
          this.router.navigateByUrl('category/index');
-    })
+    },
+    error => {
+      console.log(error);
+    }
+    )
   }
 
 }

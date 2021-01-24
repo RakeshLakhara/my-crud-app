@@ -4,14 +4,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {  Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
   
-import { Category } from './category';
-   
+import { Product } from './product';
+
 @Injectable({
   providedIn: 'root'
 })
-export class CategoryService {
-   
-  private apiURL = "http://localhost:8080/api/categories";
+export class ProductService {
+
+  private apiURL = "http://localhost:8080/api/products";
    
   httpOptions = {
     headers: new HttpHeaders({
@@ -28,29 +28,29 @@ export class CategoryService {
     )
   }
    
-  create(category): Observable<Category> {
-    return this.httpClient.post<Category>(this.apiURL , JSON.stringify(category), this.httpOptions)
+  create(product): Observable<Product> {
+    return this.httpClient.post<Product>(this.apiURL , JSON.stringify(product), this.httpOptions)
     .pipe(
       catchError(this.errorHandler)
     )
   }  
    
-  find(id:any): Observable<Category> {
-    return this.httpClient.get<Category>(`${this.apiURL}/${id}`)
+  find(id:any): Observable<Product> {
+    return this.httpClient.get<Product>(`${this.apiURL}/${id}`)
     .pipe(
       catchError(this.errorHandler)
     )
   }
    
-  update(id, category): Observable<any> {
-    return this.httpClient.put<any>(this.apiURL + '/' + id, JSON.stringify(category), this.httpOptions)
+  update(id, product): Observable<any> {
+    return this.httpClient.put<any>(this.apiURL + '/' + id, JSON.stringify(product), this.httpOptions)
     .pipe(
       catchError(this.errorHandler)
     )
   }
    
   delete(id){
-    return this.httpClient.delete<Category>(`${this.apiURL}/${id}`, this.httpOptions)
+    return this.httpClient.delete<Product>(`${this.apiURL}/${id}`, this.httpOptions)
     .pipe(
       catchError(this.errorHandler)
     )

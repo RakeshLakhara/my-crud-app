@@ -1,30 +1,31 @@
 import { Component, OnInit } from '@angular/core';
-import { CategoryService } from '../category.service';
-import { Category } from '../category';
+import { ProductService } from '../product.service';
+import { Product } from '../product';
 
 @Component({
   selector: 'app-index',
   templateUrl: './index.component.html',
-  styleUrls: ['./index.component.css'],
+  styleUrls: ['./index.component.css']
 })
 export class IndexComponent implements OnInit {
-  categories: Category[] = [];
+
+  products: Product[] = [];
   name = '';
   page = 1;
   count = 0;
   pageSize = 5;
 
-  constructor(public categoryService: CategoryService) {}
+  constructor(public productService: ProductService) {}
 
   ngOnInit(): void {
-    this.retrieveCategories();
+    this.retrieveProducts();
   }
 
   getRequestParams(searchName, page, pageSize): any {
     let params = {};
 
     if (searchName) {
-      params[`productName`] = searchName;
+      params[`name`] = searchName;
     }
     if (page) {
       params[`page`] = page - 1;
@@ -36,14 +37,14 @@ export class IndexComponent implements OnInit {
     return params;
   }
 
-  retrieveCategories(): void {
+  retrieveProducts(): void {
     const params = this.getRequestParams(this.name, this.page, this.pageSize);
 
-    this.categoryService.getAll(params)
+    this.productService.getAll(params)
     .subscribe(
       response => {
-        const { categories, totalItems } = response;
-        this.categories = categories;
+        const { products, totalItems } = response;
+        this.products = products;
         this.count = totalItems;
         console.log(response);
       },
@@ -54,17 +55,18 @@ export class IndexComponent implements OnInit {
 
   handlePageChange(event): void {
     this.page = event;
-    this.retrieveCategories();
+    this.retrieveProducts();
   }
 
   refreshList(): void {
-    this.retrieveCategories();
+    this.retrieveProducts();
   }
 
-  deleteCategory(id) {
-    this.categoryService.delete(id).subscribe((res) => {
-      this.categories = this.categories.filter((item) => item.id !== id);
-      console.log('Category deleted successfully!');
+  deleteProduct(id) {
+    this.productService.delete(id).subscribe((res) => {
+      this.products = this.products.filter((item) => item.id !== id);
+      console.log('Product deleted successfully!');
     });
   }
+
 }

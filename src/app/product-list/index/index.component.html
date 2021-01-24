@@ -1,0 +1,71 @@
+<div class="container">
+  <div class="d-flex flex-row justify-content-left py-3 bg-dark text-light">
+    <h1 class="pl-2 pl-md-3">Product Lists</h1>
+  </div>
+  <div class="col-md-8 mt-3">
+    <div class="input-group mb-3">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Search by name"
+        [(ngModel)]="name"
+      />
+      <div class="input-group-append">
+        <button
+          class="btn btn-outline-secondary"
+          type="button"
+          (click)="searchName()"
+        >
+          Search
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <table class="table table-hover table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>CATEGORY ID</th>
+        <th>CATEGORY</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="
+          let productList of productLists
+            | paginate
+              : {
+                  itemsPerPage: pageSize,
+                  currentPage: page,
+                  totalItems: count
+                }
+        "
+      >
+        <td>{{ productList.id }}</td>
+        <td>{{ productList.name }}</td>
+        <td>{{ productList.categoryId }}</td>
+        <td>{{ productList.category }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="d-flex flex-row  justify-content-between">
+    <div class="my-3">
+      <pagination-controls
+        previousLabel="Prev"
+        nextLabel="Next"
+        responsive="true"
+        (pageChange)="handlePageChange($event)"
+      ></pagination-controls>
+    </div>
+    <div class="my-3">
+      Items per Page:
+      <select (change)="handlePageSizeChange($event)">
+        <option *ngFor="let size of pageSizes" [ngValue]="size">
+          {{ size }}
+        </option>
+      </select>
+    </div>
+  </div>
+</div>

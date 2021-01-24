@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { CategoryService } from '../category.service';
+import { ProductService } from '../product.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Category } from '../category';
+import { Product } from '../product';
 
 @Component({
   selector: 'app-view',
@@ -11,10 +11,10 @@ import { Category } from '../category';
 export class ViewComponent implements OnInit {
 
   id: number;
-  category: Category;
+  product: Product;
 
   constructor(
-    public categoryService: CategoryService,
+    public productService: ProductService,
     private route: ActivatedRoute,
     private router: Router
   ) { }
@@ -22,8 +22,8 @@ export class ViewComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.route.snapshot.params['Id'];
       
-    this.categoryService.find(this.id).subscribe((data: Category)=>{
-      this.category = data;
+    this.productService.find(this.id).subscribe((data: Product)=>{
+      this.product = data;
     });
   }
 

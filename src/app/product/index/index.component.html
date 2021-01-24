@@ -1,19 +1,20 @@
 <div class="container">
     <div class="d-flex flex-row justify-content-between py-3 bg-dark text-light">
-    <h1 class="pl-2 pl-md-3">Category Master</h1>
+    <h1 class="pl-2 pl-md-3">Product Master</h1>
   
-    <a href="#" routerLink="/category/create/" class="btn btn-success m-2">Create New Category</a>
+    <a href="#" routerLink="/product/create/" class="btn btn-success m-2">Create New Product</a>
   </div>
     <table class="table table-hover table-striped table-bordered">
       <thead>
       <tr>
         <th>ID</th>
         <th>Name</th>
+        <th>CATEGORY ID</th>
         <th width="230px">Action</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let category of categories
+      <tr *ngFor="let product of products
       | paginate
               : {
                   itemsPerPage: pageSize,
@@ -21,12 +22,13 @@
                   totalItems: count
                 };
       ">
-        <td>{{ category.id }}</td>
-        <td>{{ category.name }}</td>
+        <td>{{ product.id }}</td>
+        <td>{{ product.name }}</td>
+        <td>{{ product.categoryId }}</td>
         <td>
-          <a href="#" [routerLink]="['/category/', category.id, 'view']" class="btn btn-info mr-1 mb-1">View</a>
-          <a href="#" [routerLink]="['/category/', category.id, 'edit']" class="btn btn-primary mr-1 mb-1">Edit</a>
-          <button type="button" (click)="deleteCategory(category.id)" class="btn btn-danger  mb-1">Delete</button>
+          <a href="#" [routerLink]="['/product/', product.id, 'view']" class="btn btn-info mr-1 mb-1">View</a>
+          <a href="#" [routerLink]="['/product/', product.id, 'edit']" class="btn btn-primary mr-1 mb-1">Edit</a>
+          <button type="button" (click)="deleteProduct(product.id)" class="btn btn-danger  mb-1">Delete</button>
         </td>
       </tr>
     </tbody>
